@@ -1,7 +1,3 @@
-Claro! Aqui está um exemplo de como você pode criar um arquivo README para o seu projeto:
-
----
-
 # SpaceX Launches Web App
 
 Este projeto consiste em um aplicativo web desenvolvido em Python com Flask para fornecer informações sobre os lançamentos da SpaceX de forma organizada e responsiva. Os dados são obtidos através da API pública da SpaceX e exibidos aos usuários em uma interface amigável.
