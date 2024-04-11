@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Informações de lançamentos da SpaceX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        /* Estilos CSS para tornar o layout responsivo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .launch-item {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        /* Adicione mais estilos conforme necessário */
+        @media screen and (max-width: 768px) {
+            /* Estilos para telas menores */
+            .launch-item {
+                padding: 5px;
+            }
+            /* Adicione mais estilos conforme necessário */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Informações de lançamentos da SpaceX</h1>
+        <form method="get" action="/">
+            <label for="filtro_mission_name">Filtrar por nome da missão:</label>
+            <input type="text" id="filtro_mission_name" name="filtro_mission_name">
+            <br>
+            <label for="filtro_launch_year">Filtrar por ano de lançamento:</label>
+            <input type="text" id="filtro_launch_year" name="filtro_launch_year">
+            <br>
+            <button type="submit">Filtrar</button>
+        </form>
+        <ul>
+            {% for launch in dados %}
+            <li class="launch-item" data-launch-id="{{ launch.flight_number }}">
+                <h2>Mission Name: {{ launch.mission_name }}</h2>
+                <p>Launch Year: {{ launch.launch_year }}</p>
+                <!-- Adicione mais informações conforme necessário -->
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="detalhes-lancamento" style="background-color: #fff;position: fixed; left: -2500px; top:100px; border: 1px solid black; border-radius: 20px; padding: 20px">
+        <h2 id="titulo-lancamento"></h2>
+        <p id="ano-lancamento"></p>
+        <p id="detalhes-lancamento-p"></p>
+        <button id="fechar-modal">OK</button>
+    </div>
+    <script>
+        // JavaScript para exibir detalhes do lançamento
+        const launchItems = document.querySelectorAll('.launch-item');
+        launchItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const launchId = item.dataset.launchId;
+                fetch(`/detalhes/${launchId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('titulo-lancamento').textContent = data.mission_name;
+                        document.getElementById('ano-lancamento').textContent = `Ano de Lançamento: ${data.launch_year}`;
+                        document.getElementById('detalhes-lancamento-p').textContent = data.details;
+                        document.getElementById('detalhes-lancamento').style.left = '100px';
+                    })
+                    .catch(error => console.error('Erro ao obter detalhes do lançamento:', error));
+            });
+        });
+
+
+        var fechaModal = ()=>{
+            document.getElementById('detalhes-lancamento').style.left = '-2500px';
+        }
+
+        document.getElementById("fechar-modal").onclick = fechaModal;
+    </script>
+</body>
+</html>
