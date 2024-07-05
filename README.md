@@ -54,7 +54,3 @@ Contribuições são bem-vindas! Se você encontrar algum problema, ou tiver ide
 ## Licença
 
 Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT).
-
----
-
-Adapte o conteúdo conforme necessário, incluindo o nome do projeto, as tecnologias utilizadas, instruções de instalação e execução, e informações sobre como contribuir. Certifique-se de substituir as URLs pelos links reais do seu repositório e perfil de usuário.
